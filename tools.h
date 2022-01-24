@@ -108,6 +108,7 @@
 /* those need to be initialized (main.c) */
 extern uint8_t yesflag;
 extern uint8_t noflag;
+extern uint8_t preferred_family;
 
 extern int charcount(char *, char);
 extern size_t trimcr(char *);

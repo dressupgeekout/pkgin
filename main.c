@@ -39,6 +39,7 @@ static void	ginto(void);
 
 uint8_t		yesflag = 0, noflag = 0;
 uint8_t		verbosity = 0, package_version = 0, parsable = 0, pflag = 0;
+uint8_t		preferred_family = '\0';
 char		lslimit = '\0';
 FILE  		*tracefp = NULL;
 
@@ -57,8 +58,14 @@ main(int argc, char *argv[])
 	/* Default to not doing \r printouts if we don't send to a tty */
 	parsable = !isatty(fileno(stdout));
 
-	while ((ch = getopt(argc, argv, "dhyfFPvVl:nc:t:p")) != -1) {
+	while ((ch = getopt(argc, argv, "46dhyfFPvVl:nc:t:p")) != -1) {
 		switch (ch) {
+		case '4':
+			preferred_family = '4';
+			break;
+		case '6':
+			preferred_family = '6';
+			break;
 		case 'f':
 			force_update = 1;
 			break;
@@ -368,7 +375,7 @@ usage(int status)
 	int i;
 
 	fprintf((status) ? stderr : stdout,
-	    "Usage: pkgin [-cdfhlnPtvVy] command [package ...]\n\n"
+	    "Usage: pkgin [-46cdfhlnPtvVy] command [package ...]\n\n"
 	    "Commands and shortcuts:\n");
 
 	for (i = 0; cmd[i].name != NULL; i++) {
