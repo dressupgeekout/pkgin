@@ -44,7 +44,9 @@ sum_open(char *str_url, time_t *db_mtime)
 
 	url = fetchParseURL(str_url);
 
-	if (url == NULL || (f = fetchXGet(url, &st, "4")) == NULL)
+	const char *flags = ipv4_only ? "4" : "";
+
+	if (url == NULL || (f = fetchXGet(url, &st, flags)) == NULL)
 		goto nofetch;
 
 	if (st.size == -1) { /* could not obtain file size */
@@ -171,7 +173,9 @@ download_pkg(char *pkg_url, FILE *fp)
 	if ((url = fetchParseURL(pkg_url)) == NULL)
 		errx(EXIT_FAILURE, "%s: parse failure", pkg_url);
 
-	if ((f = fetchXGet(url, &st, "4")) == NULL) {
+	const char *flags = ipv4_only ? "4" : ""
+
+	if ((f = fetchXGet(url, &st, flags)) == NULL) {
 		fprintf(stderr, "download error: %s %s\n", pkg_url,
 		    fetchLastErrString);
 		return -1;
