@@ -39,7 +39,7 @@ static void	ginto(void);
 
 uint8_t		yesflag = 0, noflag = 0;
 uint8_t		verbosity = 0, package_version = 0, parsable = 0, pflag = 0;
-uint8_t		ipv4_only = 0, ipv6_only = 0;
+uint8_t		preferred_family = '\0';
 char		lslimit = '\0';
 FILE  		*tracefp = NULL;
 
@@ -61,10 +61,10 @@ main(int argc, char *argv[])
 	while ((ch = getopt(argc, argv, "46dhyfFPvVl:nc:t:p")) != -1) {
 		switch (ch) {
 		case '4':
-			ipv4_only = 1;
+			preferred_family = '4';
 			break;
 		case '6':
-			ipv6_only = 1;
+			preferred_family = '6';
 			break;
 		case 'f':
 			force_update = 1;
